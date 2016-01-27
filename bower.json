@@ -1,0 +1,17 @@
+{
+  "name": "news-scraper",
+  "version": "0.1.0",
+  "homepage": "https://github.com/kranthikiran/news-scraper",
+  "license": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6",
+    "bootstrap-material-design": "~0.1.5",
+    "jquery": "~2.1.4",
+    "bootswatch":""
+  }
+}
