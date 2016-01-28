@@ -13,7 +13,15 @@ class Articles(Resource):
 		articles={}
 		i=0
 		for article in paper.articles:
-			articles[i]=article.url
+			articles[i]={}
+			articles[i]['url']=article.url
+			article.download()
+			article.parse()
+			article.nlp()
+			articles[i]['text']=article.text
+			articles[i]['authors']=article.authors
+			articles[i]['summary']=article.summary
+			articles[i]['keywords']=article.keywords
 			i=i+1
 		return {'articles':articles}
 
