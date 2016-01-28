@@ -1,18 +1,26 @@
 from flask import Flask,render_template
+from flask_restplus import Resource, Api
 import newspaper,json
 app = Flask(__name__)
+api = Api(app)
 
-@app.route('/')
-def index():
-	return render_template("index.html")
+@api.route('/api/v1/get-articles/<string:site>')
+class Articles(Resource):
+	def get(self,site):
+		print site
+		paper=newspaper.build("http://"+site)
+		articles={}
+		i=0
+		for article in paper.articles:
+			articles[i]=article.url
+			i=i+1
+		return {'articles':articles}
 
-@app.route('/api/v1/scrape-articles/<site>')
-def apiScrapeArticles(site=None):
-	print site
-	paper=newspaper.build("http://"+site+".com")
-	for article in paper.articles:
-		print article.url
-	return "hello"
+@api.route('/index')
+class Home(Resource):
+    def get(self):
+        return {'hello': 'world'}
+
 
 if __name__ == "__main__":
     app.run()
