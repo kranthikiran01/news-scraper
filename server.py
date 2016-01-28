@@ -5,6 +5,7 @@ app = Flask(__name__)
 api = Api(app)
 
 @api.route('/api/v1/get-articles/<string:site>')
+@api.doc(params={'site':"Site name without http prefix Ex:ndtv.com"})
 class Articles(Resource):
 	def get(self,site):
 		print site
