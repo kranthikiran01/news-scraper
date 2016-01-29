@@ -1,4 +1,4 @@
-from flask import Flask,render_template
+from flask import Flask
 from flask_restplus import Resource, Api
 import newspaper,json
 app = Flask(__name__)
@@ -15,15 +15,15 @@ class Articles(Resource):
 		for article in paper.articles:
 			articles[i]={}
 			articles[i]['url']=article.url
-			article.download()
-			article.parse()
-			article.nlp()
-			articles[i]['text']=article.text
-			articles[i]['authors']=article.authors
-			articles[i]['summary']=article.summary
-			articles[i]['keywords']=article.keywords
+			# article.download()
+			# article.parse()
+			# article.nlp()
+			# articles[i]['text']=article.text
+			# articles[i]['authors']=article.authors
+			# articles[i]['summary']=article.summary
+			# articles[i]['keywords']=article.keywords
 			i=i+1
-		return {'articles':articles}
+		return {'size':i,'articles':articles}
 
 @api.route('/index')
 class Home(Resource):
