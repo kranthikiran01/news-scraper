@@ -1,4 +1,4 @@
-from flask import Flask,render_template
+from flask import Flask
 from flask_restplus import Resource, Api
 import newspaper,json,urllib
 app = Flask(__name__)
@@ -14,8 +14,18 @@ class ArticlesList(Resource):
 		for article in paper.articles:
 			articles[i]={}
 			articles[i]['url']=article.url
+<<<<<<< HEAD
+=======
+			# article.download()
+			# article.parse()
+			# article.nlp()
+			# articles[i]['text']=article.text
+			# articles[i]['authors']=article.authors
+			# articles[i]['summary']=article.summary
+			# articles[i]['keywords']=article.keywords
+>>>>>>> 737b67b72255bfa03e52d3e3fbf3696aae283306
 			i=i+1
-		return {'articles':articles}
+		return {'size':i,'articles':articles}
 
 resource_fields = {
 	'site_url':fields.Url,
