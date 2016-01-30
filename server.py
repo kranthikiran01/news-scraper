@@ -6,12 +6,12 @@ import nltk
 app = Flask(__name__)
 api = Api(app)
 
-@api.route('/api/v1/get-articles/<string:site>')
-@api.doc(params={'site':"Site name without http prefix Ex:ndtv.com"})
+@api.route('/api/v1/get-articles/<path:site>')
+@api.doc(params={'site':"Site name with http prefix Ex:http://ndtv.com"})
 class ArticleList(Resource):
 	def get(self,site):
 		print site
-		paper=newspaper.build("http://"+site)
+		paper=newspaper.build(site)
 		articles={}
 		i=0
 		for article in paper.articles:
@@ -19,6 +19,20 @@ class ArticleList(Resource):
 			articles[i]['url']=article.url
 			i=i+1
 		return {'size':i,'articles':articles}
+
+@api.route('/api/v1/feed-url/<path:site>')
+class FeedList(Resource):
+	def get(self,site):
+		paper=newspaper.build(site)
+		feed_urls={}
+		i=0
+		for feed in paper.feed_urls():
+			print feed
+			print type(feed)
+			feed_urls[i]=feed
+			i=i+1
+		return {'size':i,'feed_urls':feed_urls}
+
 
 @api.route('/api/v1/scrape-article/<path:url>/<string:name>/<string:profession>')
 class ArticleInfo(Resource):
